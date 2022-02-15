@@ -1,11 +1,9 @@
 from django import forms
-from django.contrib.auth import get_user_model
-
+from authentication.models import UserFollows
 
 CHOICES = [('0','0'), ('1','1'), ('2','2'),
            ('3','3'), ('4','4'), ('5','5'),
          ]
-User = get_user_model()
 
 class TicketForm(forms.Form):
     title = forms.CharField(max_length=200, label='title')
@@ -23,5 +21,5 @@ class DeleteReviewForm(forms.Form):
 
 class FollowUsersForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ['following']
+        model = UserFollows
+        fields = ['user']

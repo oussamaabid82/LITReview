@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-<html>
-    <head>
-        <title>LITReview</title>
-        <h2>LITReview</h2>
-        <nav>
-            <ul>
-                <li><a href="{% url 'blog' %}">Flux</a></li>
-                <li><a href="">Posts</a></li>
-                <li><a href="">Abonnements</a></li>
-                <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
-            </ul>
-        </nav>
-    </head>
-    <body>
-        {% block content %}{% endblock content %}
-    </body>
-</html>
-=======
 {% load static %}
 <html>
     <head>
@@ -29,7 +10,6 @@
             {% if user.is_authenticated %}
                 <p>Salut, {{ user }} !</p>    
                 <p><a href="{% url 'home' %}">Accueil</a></p>
-                <!-- <p><a href="{% url 'photo_feed' %}">Flux de photos</a></p> -->
                 <p><a href="{% url 'ask_review' %}">Demander une critique</a></p>
                 <p><a href="{% url 'create_review' %}">Créer une critique</a></p>
                 <p><a href="{% url 'follow_users' %}">Suivre des utilisateurs</a></p>
@@ -41,4 +21,3 @@
         </div>
     </body>
 </html>
->>>>>>> 988f8af (MAJ programme)

@@ -26,11 +26,11 @@ class UserFollows(User):
     #     verbose_name='suit'
     # )
 
-    # # def save(self, *args, **kwargs):
-    # #     super().save(*args, **kwargs)
-    #     # if self.role == self.CREATOR:
-    #     #     group = Group.objects.get(name='creators')
-    #     #     group.user_set.add(self)
-    #     # elif self.role == self.SUBSCRIBER:
-    #     #     group = Group.objects.get(name='subscribers')
-    #     #     group.user_set.add(self)
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+        # if self.role == self.CREATOR:
+        #     group = Group.objects.get(name='creators')
+        #     group.user_set.add(self)
+        # elif self.role == self.SUBSCRIBER:
+        #     group = Group.objects.get(name='subscribers')
+        #     group.user_set.add(self)

@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-from django.db import models
-
-# Create your models here.
-=======
 from django.conf import settings
 from django.db import models
 from PIL import Image
@@ -11,7 +6,6 @@ from PIL import Image
 class Ticket(models.Model):
     title = models.CharField(max_length=128)
     description = models.TextField(max_length=5000)
-    # user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(verbose_name='image')
     caption = models.CharField(max_length=128, blank=True)
@@ -62,4 +56,3 @@ class BlogContributor(models.Model):
 
     class Meta:
         unique_together = ('contributor', 'blog')
->>>>>>> 988f8af (MAJ programme)
