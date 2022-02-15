@@ -2,8 +2,6 @@
 {% block content %}
     <h2>Modifier votre critique</h2>
     <form method="post">
-        {{ edit_book.as_p }}
-        {{ edit_photo.as_p }}
         {{ edit_form.as_p }}
         {% csrf_token %}
         <button type="submit" >Sauvegarder</button>

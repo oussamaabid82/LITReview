@@ -22,4 +22,4 @@ class DeleteReviewForm(forms.Form):
 class FollowUsersForm(forms.ModelForm):
     class Meta:
         model = UserFollows
-        fields = ['user']
+        fields = ['follows']

@@ -10,8 +10,8 @@ from .models import Review, Ticket
 
 @login_required
 def home(request):
-    review = Review.objects.filter(request.user)
-    ticket = Ticket.objects.filter(request.user)
+    review = Review.objects.all()
+    ticket = Ticket.objects.all()
     
     review_and_ticket = sorted(
         chain(review, ticket),
@@ -29,14 +29,15 @@ def home(request):
 def create_ticket(request):
     if request.method == 'POST':
         ticket_form = TicketForm(request.POST, request.FILES)
-       
         if ticket_form.is_valid():
             ticket = Ticket()
             ticket.title = ticket_form.cleaned_data['title']
             ticket.description = ticket_form.cleaned_data['description']
             ticket.image = ticket_form.cleaned_data['image']
-            ticket.uploader = request.user  
+            ticket.user = request.user  
             ticket.save()
+            ticket.contributors.add(request.user, through_defaults={'ticket_contributions': 'Auteur principal'})
+
             return redirect('home')
     else:
         ticket_form = TicketForm()
@@ -49,21 +50,34 @@ def create_ticket(request):
 
 @login_required
 def create_review(request):
-    blog_form = ReviewForm()
     if request.method == 'POST':
-        blog_form = ReviewForm(request.POST)
-        if all([blog_form.is_valid()]):
-
-            blog = Review()
-            blog.title = request.POST['title']
-            blog.content = request.POST['commentaire']
-            blog.rating = request.POST['rating']
-            blog.user = request.user
-            blog.save()
-            blog.contributors.add(request.user, through_defaults={'contribution': 'Auteur principal'})
+        ticket_form = TicketForm(request.POST, request.FILES)
+        review_form = ReviewForm(request.POST)
+        if all([ticket_form.is_valid(), review_form.is_valid()]):
+            ticket = Ticket()
+            ticket.title = ticket_form.cleaned_data['title']
+            ticket.description = ticket_form.cleaned_data['description']
+            ticket.image = ticket_form.cleaned_data['image']
+            ticket.user = request.user  
+            ticket.save()
+            ticket.contributors.add(request.user, through_defaults={'ticket_contributions': 'Auteur principal'})
+            
+            review = Review()
+            review.ticket = ticket
+            review.title = request.POST['title']
+            review.content = request.POST['commentaire']
+            review.rating = request.POST['rating']
+            review.user = request.user
+            review.save()
+            review.contributors.add(request.user, through_defaults={'review_contributions': 'Auteur principal'})
             return redirect('home')
+    else:
+        ticket_form = TicketForm()
+        review_form = ReviewForm()
+        
     context = {
-        'blog_form': blog_form,
+        'ticket_form': ticket_form,
+        'review_form': review_form,
     }
     return render(request, 'blog/create_review.html', context=context)
 
@@ -72,25 +86,25 @@ def view_blog(request, blog_id):
     blog = get_object_or_404(Review, id=blog_id)
     return render(request, 'blog/view_review.html', {'blog': blog})
 
-
 @login_required
 def edit_blog(request, blog_id):
     blog = get_object_or_404(Review, id=blog_id)
-    edit_form = ReviewForm()
-    delete_form = DeleteReviewForm()
     if request.method == 'POST':
         if 'edit_blog' in request.POST:
             edit_form = ReviewForm(request.POST, instance=blog)
-            if all ([edit_form.is_valid()]):
-                
+            if edit_form.is_valid():
                 edit_form.save()
-                
                 return redirect('home')
+            
         if 'delete_blog' in request.POST:
             delete_form = DeleteReviewForm(request.POST)
             if delete_form.is_valid():
                 blog.delete()
                 return redirect('home')
+    else:
+        edit_form = ReviewForm()
+        delete_form = DeleteReviewForm()
+        
     context = {
         'edit_form': edit_form,
         'delete_form': delete_form,
@@ -102,6 +116,7 @@ def edit_blog(request, blog_id):
 def follow_users(request):
     form = FollowUsersForm(instance=request.user)
     if request.method == 'POST':
+        print(request.method)
         form = FollowUsersForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()

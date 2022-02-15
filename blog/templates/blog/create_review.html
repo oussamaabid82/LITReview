@@ -3,10 +3,9 @@
     <h2>Créer une critique</h2>
     <form method="post" enctype="multipart/form-data">
         <h4>Livre / Article</h4>
-        {% include 'blog/tickets.html' with ticket=instance %}
-        <!-- {{ photo_form.as_p }} -->
+        {{ ticket_form.as_p }}
         <h4>Critique</h4>
-        {{ blog_form.as_p }}
+        {{ review_form.as_p }}
         {% csrf_token %}
         <button type="submit" >Publier</button>
     </form>

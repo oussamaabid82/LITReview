@@ -6,7 +6,7 @@ from django.db import models
 class UserFollows(User):
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='following')
     followed_user = models.ForeignKey(to=settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='followed_by')
-    
+    follows = models.ManyToManyField('self', symmetrical=True, verbose_name='suit')
     class Meta:
         unique_together = ('user','followed_user',)
         
