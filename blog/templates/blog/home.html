@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load blog_extras %}
+{% block content %}
+    <h2>Votre flux</h2>
+    <div class="grid-container">
+        {% for instance in page_obj %}
+            <!-- {% if instance|model_type == 'Review' %} -->
+                {% include 'blog/partials/review_snippet.html' with blog=instance %}
+            <!-- {% elif instance|model_type == 'Ticket' %} -->
+                {% include 'blog/partials/ticket_snippet.html' with ticket=instance %}  
+            <!-- {% elif instance|model_type == 'Photo' %} -->
+                <!-- {% include 'blog/partials/photo_snippet.html' with photo=instance %} -->
+            <!-- {% endif %} -->
+        {% endfor %}
+    </div>
+    {% include 'partials/page_navigator.html' %}
+{% endblock content %}

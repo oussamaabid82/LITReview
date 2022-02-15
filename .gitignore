@@ -1,0 +1,11 @@
+<<<<<<< HEAD
+__pycache__
+venv
+db.sqlite3
+=======
+venv/*
+__pycache__
+.idea
+db.sqlite3
+media
+>>>>>>> 988f8af (MAJ programme)

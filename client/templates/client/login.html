@@ -1,0 +1,13 @@
+{% block content %}
+    <h2>Connectez-vous</h2>
+    <p>{{ message }}</p>
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit" >Se connecter</button>
+    </form>
+    <h3>Inscrivez-vous maintenant</h3>
+    <form action="{% url 'registration' %}">
+        <button type="submit">S'inscrire</button>
+    </form>
+{% endblock content %}

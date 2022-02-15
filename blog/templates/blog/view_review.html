@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>{{ blog.title }}</h2>
+    <p><a href="{% url 'edit_review' blog.id %}">Modifier le billet</a></p>
+    <img src="{{ blog.photo.image.url }}">
+    <p>{{ blog.content }}</p>
+    <p>{{ blog.rating }}</p>
+{% endblock content %}

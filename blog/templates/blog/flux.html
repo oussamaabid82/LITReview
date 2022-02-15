@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Flux</h1>
+<form action="{% url 'criticize' %}">
+    <button type="submit">Créer une critique</button>
+</form> 
+
+{% endblock content %}
