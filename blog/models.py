@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from django.conf import settings
 from django.db import models
 from PIL import Image
@@ -6,7 +7,7 @@ from PIL import Image
 class Ticket(models.Model):
     title = models.CharField(max_length=128)
     description = models.TextField(max_length=5000)
-    image = models.ImageField(verbose_name='image')
+    image = models.ImageField(upload_to="media")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     contributors = models.ManyToManyField(settings.AUTH_USER_MODEL, through='BlogContributor', related_name='ticket_contributions')
     date_created = models.DateTimeField(auto_now_add=True)

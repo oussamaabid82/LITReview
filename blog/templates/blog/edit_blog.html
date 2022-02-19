@@ -2,14 +2,14 @@
 {% block content %}
     <h2>Modifier votre critique</h2>
     <form method="post">
-        {{ edit_form.as_p }}
+        {{ edit_review.as_p }}
         {% csrf_token %}
         <button type="submit" >Sauvegarder</button>
     </form>
 
     <h3>Supprimer le billet ?</h3>
     <form method="post">
-        {{ delete_form }}
+        {{ delete_review }}
         {% csrf_token %}
         <button type="submit" >Supprimer</button>
     </form>

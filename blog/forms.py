@@ -6,9 +6,9 @@ CHOICES = [('0','0'), ('1','1'), ('2','2'),
          ]
 
 class TicketForm(forms.Form):
-    title = forms.CharField(max_length=200, label='title')
-    description = forms.CharField(max_length=800, widget=forms.Textarea, label='description')
-    image = forms.ImageField()
+    title = forms.CharField(max_length=200, label='Titre')
+    description = forms.CharField(max_length=800, widget=forms.Textarea, label='Déscription')
+    image = forms.ImageField(required=False)
 
 class ReviewForm(forms.Form):
     title = forms.CharField(max_length=200, label='title')

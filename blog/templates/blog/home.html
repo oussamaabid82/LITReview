@@ -2,13 +2,28 @@
 {% load blog_extras %}
 {% block content %}
     <h2>Votre flux</h2>
+
     <div class="grid-container">
-        {% for instance in context %}
-            <!-- {% if instance|model_type == 'Review' %} --> 
-                {% include 'blog/partials/review_snippet.html' with blog=instance %}
-            <!-- {% elif instance|model_type == 'Ticket' %} -->
-                {% include 'blog/partials/ticket_snippet.html' with ticket=instance %}  
-            <!-- {% endif %} -->
+        {% for instance in review %}
+                <div class="post">
+                    <a href="{% url 'view_blog' instance.id %}">
+                        <h4>{{ instance.title }}</h4>
+                    </a>
+                        <p><strong>Écrit par {{ instance.contributors.all }}</strong></p>
+                        <p>{{ instance.date_created }}</p>
+                    
+                </div>
+        {% endfor %}
+
+        {% for instance in ticket %}
+            <div class="post">
+                <a href="{% url 'view_blog' instance.id %}">
+                <h4> {{instance.title}} </h4>
+                <img src="{{ instance.image.url }}" alt="">
+                <p><strong>Écrit par {{ instance.user }}</strong></p>
+                </a>
+                <button>Créer une critique</button>
+            </div> 
         {% endfor %}
     </div>
     {% include 'partials/page_navigator.html' %}

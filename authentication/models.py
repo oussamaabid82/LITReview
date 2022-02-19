@@ -1,36 +1,43 @@
-from django.conf import settings
-from django.contrib.auth.models import User
+# from django.conf import settings
+# from django.contrib.auth.models import User, Group
+from django.db import models
+from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 
 
-class UserFollows(User):
-    user = models.ForeignKey(to=settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='following')
-    followed_user = models.ForeignKey(to=settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='followed_by')
-    follows = models.ManyToManyField('self', symmetrical=True, verbose_name='suit')
-    class Meta:
-        unique_together = ('user','followed_user',)
-        
-    # # CREATOR = 'CREATOR'
-    # # SUBSCRIBER = 'SUBSCRIBER'
+class UserFollows(AbstractUser):
+    USER = 'USER'
+    FORLLOWED_USER = 'FORLLOWED_USER'
 
-    # CHOICES = (
-    #     ('CREATOR', 'Créateur'),
-    #     # (SUBSCRIBER, 'Abonné'),
-    # )
-    
-    # role = models.CharField(max_length=30, choices=CHOICES, verbose_name='rôle')
-    # follows = models.ManyToManyField(
-    #     'self', 
-    #     # limit_choices_to={'role': 'CREATOR'},
-    #     symmetrical=False,
-    #     verbose_name='suit'
-    # )
+
+    follows = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        verbose_name='suit'
+    )
 
     # def save(self, *args, **kwargs):
     #     super().save(*args, **kwargs)
-        # if self.role == self.CREATOR:
-        #     group = Group.objects.get(name='creators')
-        #     group.user_set.add(self)
-        # elif self.role == self.SUBSCRIBER:
-        #     group = Group.objects.get(name='subscribers')
-        #     group.user_set.add(self)
+    #     if self.USER:
+    #         group = Group.objects.get(name='users')
+    #         group.user_set.add(self)
+    #     elif self.FORLLOWED_USER:
+    #         group = Group.objects.get(name='followed_users')
+    #         group.user_set.add(self)
+
+
+# class UserFollows(User):
+#     user = models.ForeignKey(to=settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='following')
+#     followed_user = models.ForeignKey(to=settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='followed_by')
+#     follows = models.ManyToManyField('self', symmetrical=False, verbose_name='suit')
+#     class Meta:
+#         unique_together = ('user','followed_user',)
+
+#     def save(self, *args, **kwargs):
+#         super().save(*args, **kwargs)
+#         if self.user:
+#             group = Group.objects.get(name='users')
+#             group.user_set.add(self)
+#         elif self.followed_user:
+#             group = Group.objects.get(name='followed_users')
+#             group.user_set.add(self)

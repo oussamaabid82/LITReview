@@ -1,8 +1,8 @@
+from django.db.models import Q
 from itertools import chain
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-
 from .forms import TicketForm, DeleteReviewForm, FollowUsersForm, ReviewForm
 from .models import Review, Ticket
 
@@ -10,19 +10,28 @@ from .models import Review, Ticket
 
 @login_required
 def home(request):
-    review = Review.objects.all()
-    ticket = Ticket.objects.all()
     
+    ticket = Ticket.objects.filter(
+        user = request.user)
+    
+    review = Review.objects.filter(
+        user = request.user)
+        
     review_and_ticket = sorted(
         chain(review, ticket),
         key=lambda instance: instance.date_created,
         reverse=True
     )
+  
     paginator = Paginator(review_and_ticket, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'page_obj': page_obj}
-
+    context = {
+        'page_obj': page_obj,
+        'ticket': ticket,
+        'review': review
+        }
+    
     return render(request, 'blog/home.html', context=context)
 
 @login_required
@@ -36,7 +45,7 @@ def create_ticket(request):
             ticket.image = ticket_form.cleaned_data['image']
             ticket.user = request.user  
             ticket.save()
-            ticket.contributors.add(request.user, through_defaults={'ticket_contributions': 'Auteur principal'})
+            # ticket.contributors.add(request.user, through_defaults={'ticket_contributions': 'Auteur principal'})
 
             return redirect('home')
     else:
@@ -60,7 +69,7 @@ def create_review(request):
             ticket.image = ticket_form.cleaned_data['image']
             ticket.user = request.user  
             ticket.save()
-            ticket.contributors.add(request.user, through_defaults={'ticket_contributions': 'Auteur principal'})
+            # ticket.contributors.add(request.user, through_defaults={'ticket_contributions': 'Auteur principal'})
             
             review = Review()
             review.ticket = ticket
@@ -69,7 +78,7 @@ def create_review(request):
             review.rating = request.POST['rating']
             review.user = request.user
             review.save()
-            review.contributors.add(request.user, through_defaults={'review_contributions': 'Auteur principal'})
+            # review.contributors.add(request.user, through_defaults={'review_contributions': 'Auteur principal'})
             return redirect('home')
     else:
         ticket_form = TicketForm()
@@ -90,24 +99,24 @@ def view_blog(request, blog_id):
 def edit_blog(request, blog_id):
     blog = get_object_or_404(Review, id=blog_id)
     if request.method == 'POST':
-        if 'edit_blog' in request.POST:
-            edit_form = ReviewForm(request.POST, instance=blog)
-            if edit_form.is_valid():
-                edit_form.save()
+        if 'edit_review' in request.POST:
+            edit_review = ReviewForm(request.POST, instance=blog)
+            if edit_review.is_valid():
+                edit_review.save()
                 return redirect('home')
             
         if 'delete_blog' in request.POST:
-            delete_form = DeleteReviewForm(request.POST)
-            if delete_form.is_valid():
+            delete_review = DeleteReviewForm(request.POST)
+            if delete_review.is_valid():
                 blog.delete()
                 return redirect('home')
     else:
-        edit_form = ReviewForm()
-        delete_form = DeleteReviewForm()
+        edit_review = ReviewForm()
+        delete_review = DeleteReviewForm()
         
     context = {
-        'edit_form': edit_form,
-        'delete_form': delete_form,
+        'edit_review': edit_review,
+        'delete_review': delete_review,
     }
     return render(request, 'blog/edit_blog.html', context=context)
 
@@ -116,9 +125,14 @@ def edit_blog(request, blog_id):
 def follow_users(request):
     form = FollowUsersForm(instance=request.user)
     if request.method == 'POST':
-        print(request.method)
         form = FollowUsersForm(request.POST, instance=request.user)
         if form.is_valid():
+            # django forms initial values
+            # recuperer l'utilisateur depiuis le formulaire
+            # selected_user = form.cleaned_data['user']
+            # equest.user.follows.all().add(selected_user
+            # request.user.follows.save()
+             
             form.save()
             return redirect('home')
     return render(request, 'blog/follow_users_form.html', context={'form': form})
