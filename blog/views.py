@@ -12,10 +12,10 @@ from .models import Review, Ticket
 def home(request):
     
     ticket = Ticket.objects.filter(
-        user = request.user)
+        Q(user__in = request.user.follows.all()) | Q(user=True))
     
     review = Review.objects.filter(
-        user = request.user)
+        Q(user__in = request.user.follows.all()) | Q(user=True))
         
     review_and_ticket = sorted(
         chain(review, ticket),
@@ -93,11 +93,14 @@ def create_review(request):
 @login_required
 def view_blog(request, blog_id):
     blog = get_object_or_404(Review, id=blog_id)
+
     return render(request, 'blog/view_review.html', {'blog': blog})
 
 @login_required
 def edit_blog(request, blog_id):
     blog = get_object_or_404(Review, id=blog_id)
+    edit_review = ReviewForm(request.POST, blog)
+    
     if request.method == 'POST':
         if 'edit_review' in request.POST:
             edit_review = ReviewForm(request.POST, instance=blog)
@@ -128,11 +131,6 @@ def follow_users(request):
         form = FollowUsersForm(request.POST, instance=request.user)
         if form.is_valid():
             # django forms initial values
-            # recuperer l'utilisateur depiuis le formulaire
-            # selected_user = form.cleaned_data['user']
-            # equest.user.follows.all().add(selected_user
-            # request.user.follows.save()
-             
             form.save()
             return redirect('home')
     return render(request, 'blog/follow_users_form.html', context={'form': form})

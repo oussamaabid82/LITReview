@@ -1,21 +1,18 @@
 {% load static %}
 <html>
     <head>
-        <title>LITReview</title>
-        <link rel="stylesheet" href="{% static 'app.css' %}">
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
     </head>
     <body>
         <div class="sidebar">
-            <h1>LITReview</h1>
             {% if user.is_authenticated %}
-                <p>Salut, {{ user }} !</p>    
-                <p><a href="{% url 'home' %}">Accueil</a></p>
-                <p><a href="{% url 'ask_review' %}">Demander une critique</a></p>
-                <p><a href="{% url 'create_review' %}">Créer une critique</a></p>
-                <p><a href="{% url 'follow_users' %}">Suivre des utilisateurs</a></p>
-                <p><a href="{% url 'logout' %}">Se déconnecter</a></p>
+                <nav><a href="{% url 'home' %}">Flux</a></nav>
+                <nav><a href="">Posts</a></nav>   
+                <nav><a href="{% url 'follow_users' %}">Abonnements</a></nav>
+                <nav><a href="{% url 'logout' %}">Se déconnecter</a></nav>
             {% endif %}
         </div>
+        <h4>Salut, {{ user }} !</h4>
         <div class="main">
             {% block content %}{% endblock content %}
         </div>

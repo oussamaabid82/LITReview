@@ -1,15 +1,27 @@
 {% extends 'base.html' %}
 {% load blog_extras %}
 {% block content %}
-    <h2>Votre flux</h2>
+
+    
 
     <div class="grid-container">
+        <div class="button_flux">
+            <form action="{% url 'ask_review' %}">
+                <button type="submit">Demander une critique</button>
+            </form>
+    
+            <form action="{% url 'create_review' %}">
+                <button type="submit">Créer une critique</button>
+            </form>
+        </div>
+        
         {% for instance in review %}
                 <div class="post">
+
                     <a href="{% url 'view_blog' instance.id %}">
                         <h4>{{ instance.title }}</h4>
                     </a>
-                        <p><strong>Écrit par {{ instance.contributors.all }}</strong></p>
+                        <p><strong>Écrit par {{ instance.user }}</strong></p>
                         <p>{{ instance.date_created }}</p>
                     
                 </div>
@@ -17,11 +29,16 @@
 
         {% for instance in ticket %}
             <div class="post">
-                <a href="{% url 'view_blog' instance.id %}">
+                <div class="head_ticket">
+                    <p><strong>{{ instance.user}} a demandé une critique</strong></p>
+                    <p>{{ instance.date_created }}</p>
+                </div>
+                
                 <h4> {{instance.title}} </h4>
-                <img src="{{ instance.image.url }}" alt="">
-                <p><strong>Écrit par {{ instance.user }}</strong></p>
-                </a>
+                <a href="{% url 'view_blog' instance.id %}">
+               
+                <img src="{{ instance.image.url }}" alt="image_ticket">
+            </a>
                 <button>Créer une critique</button>
             </div> 
         {% endfor %}

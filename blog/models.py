@@ -12,7 +12,7 @@ class Ticket(models.Model):
     contributors = models.ManyToManyField(settings.AUTH_USER_MODEL, through='BlogContributor', related_name='ticket_contributions')
     date_created = models.DateTimeField(auto_now_add=True)
     
-    IMAGE_MAX_SIZE = (400, 400)
+    IMAGE_MAX_SIZE = (200, 200)
 
     def resize_image(self):
         image = Image.open(self.image)
