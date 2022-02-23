@@ -44,6 +44,8 @@ html {
     background-color: white;
     padding: 15px 32px;
     border-radius: 12px;
+    font-size: large;
+    cursor: pointer;
 }
 
 
@@ -75,9 +77,24 @@ html {
 .post {
     Margin:0px 0px 10px 0px ;
     padding-top: 10px;
-    padding-bottom: 30px;
+    padding-bottom: 5px;
     border: 1px solid #000000;
     text-align: left;
+}
+
+.button_delet_and_modif{
+    display: flex;
+    justify-content: end;
+    margin-bottom: 0cm;
+}
+
+.button_delet_and_modif button{
+    margin-right: 20px;
+    background-color: white;
+    padding: 10px 28px;
+    border-radius: 12px;
+    font-size: large;
+    cursor: pointer;
 }
 
 .post img {

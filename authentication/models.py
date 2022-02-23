@@ -15,12 +15,4 @@ class UserFollows(AbstractUser):
         symmetrical=False,
         verbose_name='suit'
     )
-
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     if self.USER:
-    #         group = Group.objects.get(name='users')
-    #         group.user_set.add(self)
-    #     elif self.FORLLOWED_USER:
-    #         group = Group.objects.get(name='followed_users')
-    #         group.user_set.add(self)
+    

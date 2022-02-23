@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load blog_extras %}
+{% block content %}
+
+    <div class="grid-container">
+        
+        {% for instance in review %}
+                <div class="post">
+                    <h4>{{ instance.title }}</h4>
+                    <p><strong>Écrit par {{ instance.user }}</strong></p>
+                    <p>{{ instance.date_created }}</p>
+                    <div class="button_delet_and_modif">
+                        <form action="{% url 'edit_review' instance.id %}">
+                            <button type="submit">Modifier</button>
+                        </form>
+                        <form method="post">
+                            {{ delete_review }}
+                            {% csrf_token %}
+                            <button type="submit" >Supprimer</button>
+                        </form>
+                    </div>
+                </div>
+        {% endfor %}
+
+        {% for instance in ticket %}
+            <div class="post">
+                <div class="head_ticket">
+                    <p><strong>{{ instance.user}} a demandé une critique</strong></p>
+                    <p>{{ instance.date_created }}</p>
+                </div>
+                    <h4> {{instance.title}} </h4>
+                    <img src="{{ instance.image.url }}" alt="image_ticket">
+                    <div class="button_delet_and_modif">
+                        <form action="{% url 'edit_ticket' instance.id %}">
+                            <button type="submit">Modifier</button>
+                        </form>
+                        <form method="post">
+                            {{ delete_ticket}}
+                            {% csrf_token %}
+                            <button type="submit" >Supprimer</button>
+                        </form>
+                </div>
+            </div> 
+        {% endfor %}
+        
+    </div>
+
+    {% include 'partials/page_navigator.html' %}
+{% endblock content %}

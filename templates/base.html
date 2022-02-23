@@ -1,13 +1,13 @@
 {% load static %}
 <html>
     <head>
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
     <body>
         <div class="sidebar">
             {% if user.is_authenticated %}
                 <nav><a href="{% url 'home' %}">Flux</a></nav>
-                <nav><a href="">Posts</a></nav>   
+                <nav><a href="{% url 'post' %}">Posts</a></nav>   
                 <nav><a href="{% url 'follow_users' %}">Abonnements</a></nav>
                 <nav><a href="{% url 'logout' %}">Se déconnecter</a></nav>
             {% endif %}

@@ -13,10 +13,13 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('signup/', authentication.views.signup_page, name='signup'),
     path('home/', blog.views.home, name='home'),
+    path('post/', blog.views.post, name='post'),
     path('blog/ticket/', blog.views.create_ticket, name='ask_review'),
     path('blog/review', blog.views.create_review, name='create_review'),
+    path('blog/<int:blog_id>/review_response', blog.views.create_review_response_ticket, name='review_response'),
     path('blog/<int:blog_id>', blog.views.view_blog, name='view_blog'),
-    path('blog/<int:blog_id>/edit', blog.views.edit_blog, name='edit_review'),
+    path('blog/<int:blog_id>/edit_review', blog.views.edit_review, name='edit_review'),
+    path('blog/<int:blog_id>/edit_ticket', blog.views.edit_ticket, name='edit_ticket'),
     path('follow-users/', blog.views.follow_users, name='follow_users')
 ]
 

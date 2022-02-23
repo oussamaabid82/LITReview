@@ -6,11 +6,4 @@
         {% csrf_token %}
         <button type="submit" >Sauvegarder</button>
     </form>
-
-    <h3>Supprimer le billet ?</h3>
-    <form method="post">
-        {{ delete_review }}
-        {% csrf_token %}
-        <button type="submit" >Supprimer</button>
-    </form>
 {% endblock content %}

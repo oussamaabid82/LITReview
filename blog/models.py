@@ -33,9 +33,9 @@ class Review(models.Model):
         ('4', '4'),
         ('5', '5')
     )
-    ticket = models.ForeignKey(to=Ticket,on_delete=models.CASCADE)
-    title = models.CharField(max_length=128)
-    content = models.CharField(max_length=5000)
+    ticket = models.ForeignKey(to=Ticket,on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=128, null=True)
+    content = models.TextField(max_length=5000)
     rating = models.IntegerField(choices=RATING_RANGE)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     contributors = models.ManyToManyField(settings.AUTH_USER_MODEL, through='BlogContributor', related_name='review_contributions')
