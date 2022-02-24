@@ -5,24 +5,23 @@ from PIL import Image
 
 
 class Ticket(models.Model):
-    title = models.CharField(max_length=128)
+    title_ticket = models.CharField(max_length=128)
     description = models.TextField(max_length=5000)
     image = models.ImageField(upload_to="media")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     contributors = models.ManyToManyField(settings.AUTH_USER_MODEL, through='BlogContributor', related_name='ticket_contributions')
     date_created = models.DateTimeField(auto_now_add=True)
     
-    IMAGE_MAX_SIZE = (200, 200)
+    # IMAGE_MAX_SIZE = (200, 200)
 
-    def resize_image(self):
-        image = Image.open(self.image)
-        image.thumbnail(self.IMAGE_MAX_SIZE)
-        image.save(self.image.path)
+    # def resize_image(self):
+    #     image = Image.open(self.image)
+    #     image.thumbnail(self.IMAGE_MAX_SIZE)
+    #     image.save(self.image.path)
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        self.resize_image()
-
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     self.resize_image()
     
 class Review(models.Model):
     RATING_RANGE = (
@@ -34,9 +33,9 @@ class Review(models.Model):
         ('5', '5')
     )
     ticket = models.ForeignKey(to=Ticket,on_delete=models.CASCADE, null=True)
-    title = models.CharField(max_length=128, null=True)
+    title_review = models.CharField(max_length=128, null=True)
     content = models.TextField(max_length=5000)
-    rating = models.IntegerField(choices=RATING_RANGE)
+    rating = models.CharField(max_length=11, choices=RATING_RANGE)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     contributors = models.ManyToManyField(settings.AUTH_USER_MODEL, through='BlogContributor', related_name='review_contributions')
     date_created = models.DateTimeField(auto_now_add=True)
@@ -47,7 +46,6 @@ class Review(models.Model):
     def save(self, *args, **kwargs):
         self.word_count = self._get_word_count()
         super().save(*args, **kwargs)
-
 
 class BlogContributor(models.Model):
     contributor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

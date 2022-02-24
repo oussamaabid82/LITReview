@@ -17,8 +17,11 @@
         {% for instance in review %}
                 <div class="post">
                     <h4>{{ instance.title }}</h4>
-                    <p><strong>Écrit par {{ instance.user }}</strong></p>
+                    <p><strong>Critique publié par {{ instance.user }}</strong></p>
                     <p>{{ instance.date_created }}</p>
+                    <p>{{ instance.title_review }}</p> 
+                    <p>{{ instance.rating }}</p>
+                    <p>{{ instance.content }}</p>
                     
                 </div>
         {% endfor %}
@@ -32,7 +35,9 @@
                 <h4> {{instance.title}} </h4>
                 <img src="{{ instance.image.url }}" alt="image_ticket">
                 
-                <button>Créer une critique</button>
+                <form action="{% url 'review_response' instance.id %}">
+                    <button type="submit">Créer une critique</button>
+                </form>
             </div> 
         {% endfor %}
     </div>

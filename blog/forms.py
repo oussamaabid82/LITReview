@@ -12,24 +12,19 @@ RATING_RANGE = (
         ('5', '5')
     )
 
-
 class TicketForm(forms.ModelForm):
     description = forms.CharField(max_length=800, widget=forms.Textarea, label='Déscription')
-    image = forms.ImageField(required=False)
+    image = forms.ImageField()
     class Meta:
         model = Ticket
-        fields = ['description', 'image']
-    
-    # title = forms.CharField(max_length=200, label='Titre')
-    # description = forms.CharField(max_length=800, widget=forms.Textarea, label='Déscription')
-    # image = forms.ImageField(required=False)
-
+        fields = ['title_ticket','description', 'image']
+        
 class ReviewForm(forms.ModelForm):
     rating = forms.ChoiceField(choices=RATING_RANGE, widget=forms.RadioSelect())
     class Meta:
         model = Review
-        fields = ['rating', 'content']
-
+        fields = ['title_review', 'rating', 'content']
+        
 class FollowUsersForm(forms.ModelForm):
     class Meta:
         model = UserFollows

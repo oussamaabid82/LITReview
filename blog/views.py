@@ -65,7 +65,7 @@ def create_ticket(request):
         ticket_form = TicketForm(request.POST, request.FILES)
         if ticket_form.is_valid():
             ticket = Ticket()
-            ticket.title = ticket_form.cleaned_data['title']
+            ticket.title_ticket = ticket_form.cleaned_data['title']
             ticket.description = ticket_form.cleaned_data['description']
             ticket.image = ticket_form.cleaned_data['image']
             ticket.user = request.user  
@@ -90,7 +90,7 @@ def create_review(request):
         review_form = ReviewForm(request.POST)
         if all([ticket_form.is_valid(), review_form.is_valid()]):
             ticket = Ticket()
-            ticket.title = ticket_form.cleaned_data['title']
+            ticket.title_ticket = ticket_form.cleaned_data['title_ticket']
             ticket.description = ticket_form.cleaned_data['description']
             ticket.image = ticket_form.cleaned_data['image']
             ticket.user = request.user  
@@ -99,8 +99,8 @@ def create_review(request):
             
             review = Review()
             review.ticket = ticket
-            review.title = request.POST['title']
-            review.content = request.POST['commentaire']
+            review.title_review = request.POST['title_review']
+            review.content = request.POST['content']
             review.rating = request.POST['rating']
             review.user = request.user
             review.save()
@@ -125,8 +125,8 @@ def create_review_response_ticket(request, blog_id):
         if review_form.is_valid():
             review = Review()
             review.ticket = ticket
-            review.title = request.POST['title']
-            review.content = request.POST['commentaire']
+            review.title_review = request.POST['title_review']
+            review.content = request.POST['content']
             review.rating = request.POST['rating']
             review.user = request.user
             review.save()
@@ -135,7 +135,6 @@ def create_review_response_ticket(request, blog_id):
         review_form = ReviewForm()
         
     context = {
-        'ticket': ticket,
         'review_form': review_form,
     }
     return render(request, 'blog/create_review_response.html', context=context)
@@ -179,10 +178,15 @@ def edit_ticket(request, blog_id):
 @login_required
 def delete_review(request, blog_id):
     review = get_object_or_404(Review, id=blog_id)
-    delete_review = review.delete()
-    redirect('post')
-    context = {'delete_review': delete_review}
-    return render(request, 'blog/post.html', context=context)
+    review.delete()
+    return redirect('post')
+
+@login_required
+def delete_ticket(request, blog_id):
+    ticket = get_object_or_404(Ticket, id=blog_id)
+    ticket.delete()
+    return redirect('post')
+    
     
 @login_required
 def follow_users(request):

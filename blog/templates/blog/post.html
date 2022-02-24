@@ -7,14 +7,16 @@
         {% for instance in review %}
                 <div class="post">
                     <h4>{{ instance.title }}</h4>
-                    <p><strong>Écrit par {{ instance.user }}</strong></p>
+                    <p><strong>Critique publié par {{ instance.user }}</strong></p>
                     <p>{{ instance.date_created }}</p>
+                    <p>{{ instance.title_review }}</p> 
+                    <p>{{ instance.rating }}</p>
+                    <p>{{ instance.content }}</p>
                     <div class="button_delet_and_modif">
                         <form action="{% url 'edit_review' instance.id %}">
                             <button type="submit">Modifier</button>
                         </form>
-                        <form method="post">
-                            {{ delete_review }}
+                        <form action="{% url 'delete_review' instance.id %}">
                             {% csrf_token %}
                             <button type="submit" >Supprimer</button>
                         </form>
@@ -28,17 +30,17 @@
                     <p><strong>{{ instance.user}} a demandé une critique</strong></p>
                     <p>{{ instance.date_created }}</p>
                 </div>
-                    <h4> {{instance.title}} </h4>
-                    <img src="{{ instance.image.url }}" alt="image_ticket">
-                    <div class="button_delet_and_modif">
-                        <form action="{% url 'edit_ticket' instance.id %}">
-                            <button type="submit">Modifier</button>
-                        </form>
-                        <form method="post">
-                            {{ delete_ticket}}
-                            {% csrf_token %}
-                            <button type="submit" >Supprimer</button>
-                        </form>
+                <p>{{ instance.title_ticket }}</p>
+                <p>{{ instance.description }} </p>
+                <img src="{{ instance.image.url }}" alt="image_ticket">
+                <div class="button_delet_and_modif">
+                    <form action="{% url 'edit_ticket' instance.id %}">
+                        <button type="submit">Modifier</button>
+                    </form>
+                    <form action="{% url 'delete_ticket' instance.id %}">
+                        {% csrf_token %}
+                        <button type="submit" >Supprimer</button>
+                    </form>
                 </div>
             </div> 
         {% endfor %}
