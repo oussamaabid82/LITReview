@@ -4,7 +4,8 @@
 
     <div class="grid-container">
         
-        {% for instance in review %}
+        {% for instance in page_obj %}
+            {% if instance|model_type == 'Review' %}
                 <div class="post">
                     <h4>{{ instance.title }}</h4>
                     <p><strong>Critique publié par {{ instance.user }}</strong></p>
@@ -22,29 +23,27 @@
                         </form>
                     </div>
                 </div>
+            {% elif instance|model_type == 'Ticket' %}
+                <div class="post">
+                    <div class="head_ticket">
+                        <p><strong>{{ instance.user}} a demandé une critique</strong></p>
+                        <p>{{ instance.date_created }}</p>
+                    </div>
+                    <p>{{ instance.title_ticket }}</p>
+                    <p>{{ instance.description }} </p>
+                    <img src="{{ instance.image.url }}" alt="image_ticket">
+                    <div class="button_delet_and_modif">
+                        <form action="{% url 'edit_ticket' instance.id %}">
+                            <button type="submit">Modifier</button>
+                        </form>
+                        <form action="{% url 'delete_ticket' instance.id %}">
+                            {% csrf_token %}
+                            <button type="submit" >Supprimer</button>
+                        </form>
+                    </div>
+                </div> 
+            {% endif %}    
         {% endfor %}
-
-        {% for instance in ticket %}
-            <div class="post">
-                <div class="head_ticket">
-                    <p><strong>{{ instance.user}} a demandé une critique</strong></p>
-                    <p>{{ instance.date_created }}</p>
-                </div>
-                <p>{{ instance.title_ticket }}</p>
-                <p>{{ instance.description }} </p>
-                <img src="{{ instance.image.url }}" alt="image_ticket">
-                <div class="button_delet_and_modif">
-                    <form action="{% url 'edit_ticket' instance.id %}">
-                        <button type="submit">Modifier</button>
-                    </form>
-                    <form action="{% url 'delete_ticket' instance.id %}">
-                        {% csrf_token %}
-                        <button type="submit" >Supprimer</button>
-                    </form>
-                </div>
-            </div> 
-        {% endfor %}
-        
     </div>
 
     {% include 'partials/page_navigator.html' %}

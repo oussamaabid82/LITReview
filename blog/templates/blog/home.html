@@ -14,31 +14,34 @@
             </form>
         </div>
         
-        {% for instance in review %}
+        {% for instance in page_obj %}
+        
+            {% if instance|model_type == 'Review' %}
                 <div class="post">
+                    <h1>{{instance.contributors}}</h1>
                     <h4>{{ instance.title }}</h4>
                     <p><strong>Critique publié par {{ instance.user }}</strong></p>
                     <p>{{ instance.date_created }}</p>
                     <p>{{ instance.title_review }}</p> 
                     <p>{{ instance.rating }}</p>
                     <p>{{ instance.content }}</p>
-                    
                 </div>
-        {% endfor %}
 
-        {% for instance in ticket %}
-            <div class="post">
-                <div class="head_ticket">
-                    <p><strong>{{ instance.user}} a demandé une critique</strong></p>
-                    <p>{{ instance.date_created }}</p>
-                </div>
-                <h4> {{instance.title}} </h4>
-                <img src="{{ instance.image.url }}" alt="image_ticket">
-                
-                <form action="{% url 'review_response' instance.id %}">
-                    <button type="submit">Créer une critique</button>
-                </form>
-            </div> 
+            {% elif instance|model_type == 'Ticket' %}
+                <div class="post">
+                    <h1>{{instance.contributors}}</h1>
+                    <div class="head_ticket">
+                        <p><strong>{{ instance.user}} a demandé une critique</strong></p>
+                        <p>{{ instance.date_created }}</p>
+                    </div>
+                    <h4> {{instance.title}} </h4>
+                    <img src="{{ instance.image.url }}" alt="image_ticket">
+                    
+                    <form action="{% url 'review_response' instance.id %}">
+                        <button type="submit">Créer une critique</button>
+                    </form>
+                </div> 
+            {% endif %}
         {% endfor %}
     </div>
     {% include 'partials/page_navigator.html' %}

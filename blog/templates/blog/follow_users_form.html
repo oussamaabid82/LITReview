@@ -6,4 +6,9 @@
         {% csrf_token %}
         <button type="submit" >Confirmer</button>
     </form>
+    <div>
+        {% for instance in follows %}
+            {{ instance }}
+        {% endfor %}
+    </div>
 {% endblock content %}

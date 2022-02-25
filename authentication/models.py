@@ -7,7 +7,7 @@ from django.db import models
 
 class UserFollows(AbstractUser):
     USER = 'USER'
-    FORLLOWED_USER = 'FORLLOWED_USER'
+    # FORLLOWED_USER = 'FORLLOWED_USER'
 
 
     follows = models.ManyToManyField(
