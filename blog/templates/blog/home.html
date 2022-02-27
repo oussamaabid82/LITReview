@@ -18,7 +18,6 @@
         
             {% if instance|model_type == 'Review' %}
                 <div class="post">
-                    <h1>{{instance.contributors}}</h1>
                     <h4>{{ instance.title }}</h4>
                     <p><strong>Critique publié par {{ instance.user }}</strong></p>
                     <p>{{ instance.date_created }}</p>
@@ -29,7 +28,6 @@
 
             {% elif instance|model_type == 'Ticket' %}
                 <div class="post">
-                    <h1>{{instance.contributors}}</h1>
                     <div class="head_ticket">
                         <p><strong>{{ instance.user}} a demandé une critique</strong></p>
                         <p>{{ instance.date_created }}</p>

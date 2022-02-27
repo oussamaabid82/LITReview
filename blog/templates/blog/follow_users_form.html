@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Suivre des utilisateurs</h2>
+    <h2>Suivre d'autres utilisateurs</h2>
     <form method="post">
         {{ form.as_p }}
         {% csrf_token %}
-        <button type="submit" >Confirmer</button>
+        <button type="submit" >Envoyer</button>
     </form>
-    <div>
-        {% for instance in follows %}
-            {{ instance }}
-        {% endfor %}
+    <div class="display_follows">
+        <div>
+            {% for instance in follows %}
+                {{instance}}
+                <p><a href="{% url 'remove_follow_users' instance.id %}">Désabonner</a></p>
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}

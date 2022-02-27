@@ -29,3 +29,6 @@ class FollowUsersForm(forms.ModelForm):
     class Meta:
         model = UserFollows
         fields = ['follows']
+
+class SearchUserForm(forms.Form):
+    username = forms.CharField(max_length=100)

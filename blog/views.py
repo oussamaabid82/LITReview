@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 
 from authentication.models import UserFollows
-from .forms import TicketForm, FollowUsersForm, ReviewForm
+from .forms import TicketForm, FollowUsersForm, ReviewForm, SearchUserForm
 from .models import Review, Ticket
 
 
@@ -179,16 +179,39 @@ def delete_ticket(request, blog_id):
 @login_required
 def follow_users(request):
     if request.method == 'POST':
-        form = FollowUsersForm(request.POST, instance=request.user)
-        if form.is_valid():
-            follows = form.cleaned_data['follows']
-            form.save()
-            return redirect('home')
+        form = SearchUserForm(request.POST)
+        username = request.POST['username']
+        # verifier si username est un utilisateur
+        try:
+            searched_user =  UserFollows.objects.get(username=username)
+            user = request.user
+            user.follows.add(searched_user)
+            follows = user.follows.all()
+        except UserFollows.DoesNotExist:
+            print("utilisateur inexistant")
     else:
-        form = FollowUsersForm()
-        follows =''
-        context = {
-            'form': form, 
-            'follows': follows,
-        }
+        form = SearchUserForm()
+        follows = None
+    context = {
+        'form': form,
+        'follows': follows,
+    }
     return render(request, 'blog/follow_users_form.html', context=context)
+
+def unfollow_follow_users(request, authentication_id):
+    user = request.user
+    user_id = UserFollows.objects.get(id=authentication_id)
+    print(user_id)
+    user.follows.remove(user_id)
+    return redirect('follow_users')
+
+    # if request.method == 'POST':
+    #     form = FollowUsersForm(request.POST, instance=request.user)
+    #     if form.is_valid():
+    #         follows_name = form.cleaned_data['follows']
+    #         print(follows_name)
+    #         form.save()
+    #         return redirect('home')
+    # else:
+    #     form = FollowUsersForm()
+    #     follows =''

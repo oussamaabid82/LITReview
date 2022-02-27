@@ -22,6 +22,9 @@ html {
     display: flex;
 } 
 
+.head_ticket p{
+   flex: 2 1 auto;
+} 
 /* The sidebar menu */
 .sidebar {
     display: flex;
@@ -102,3 +105,9 @@ html {
     height: 200 px;
     border-radius: 5px;
 }
+
+.display_follows div{
+    display: flex;
+    font-size: large;
+}
+

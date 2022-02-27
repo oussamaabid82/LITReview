@@ -12,7 +12,9 @@
                 <nav><a href="{% url 'logout' %}">Se déconnecter</a></nav>
             {% endif %}
         </div>
-        <h4>Salut, {{ user }} !</h4>
+        {% if user.is_authenticated %}
+            <h4>Salut, {{ user }} !</h4>
+        {% endif %}
         <div class="main">
             {% block content %}{% endblock content %}
         </div>
