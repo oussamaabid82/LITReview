@@ -174,7 +174,7 @@ def delete_ticket(request, blog_id):
     ticket = get_object_or_404(Ticket, id=blog_id)
     ticket.delete()
     return redirect('post')
-    
+
     
 @login_required
 def follow_users(request):
@@ -198,20 +198,8 @@ def follow_users(request):
     }
     return render(request, 'blog/follow_users_form.html', context=context)
 
-def unfollow_follow_users(request, authentication_id):
+@login_required
+def unfollow_follow_users(request, follows_id):
     user = request.user
-    user_id = UserFollows.objects.get(id=authentication_id)
-    print(user_id)
-    user.follows.remove(user_id)
+    user.follows.remove(follows_id)
     return redirect('follow_users')
-
-    # if request.method == 'POST':
-    #     form = FollowUsersForm(request.POST, instance=request.user)
-    #     if form.is_valid():
-    #         follows_name = form.cleaned_data['follows']
-    #         print(follows_name)
-    #         form.save()
-    #         return redirect('home')
-    # else:
-    #     form = FollowUsersForm()
-    #     follows =''

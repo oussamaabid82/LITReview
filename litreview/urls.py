@@ -23,7 +23,7 @@ urlpatterns = [
     path('blog/<int:blog_id>/edit_ticket', blog.views.edit_ticket, name='edit_ticket'),
     path('blog/<int:blog_id>/delete_ticket', blog.views.delete_ticket, name='delete_ticket'),
     path('follow-users/', blog.views.follow_users, name='follow_users'),
-    path('follow-users/remove', blog.views.unfollow_follow_users, name="remove_follow_users"),
+    path('follow-users/<int:follows_id>/remove', blog.views.unfollow_follow_users, name="remove_follow_users"),
 ]
 
 if settings.DEBUG:
