@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2>Créer une critique</h2>
+    <div class="post">
+        <div class="head_ticket">
+            <p><strong>{{ ticket.user}} a demandé une critique</strong></p>
+            <p>{{ ticket.date_created }}</p>
+        </div>
+        <h4> {{ticket.title_ticket}} </h4>
+        <p>{{ticket.description}}</p>
+        <img src="{{ ticket.image.url }}" alt="image_ticket">
+    </div> 
     <form method="post" enctype="multipart/form-data">
         <h4>Critique</h4>
         {{ review_form.as_p }}

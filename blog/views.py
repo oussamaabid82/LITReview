@@ -17,6 +17,7 @@ def home(request):
         Q(user__in = request.user.follows.all()) | Q(user=True))
     review = Review.objects.filter(
         Q(user__in = request.user.follows.all()) | Q(user=True))
+
     review_and_ticket = sorted(
         chain(review, ticket),
         key=lambda instance: instance.date_created,
@@ -110,6 +111,7 @@ def create_review_response_ticket(request, blog_id):
     if request.method == 'POST':
         review_form = ReviewForm(request.POST)
         ticket = get_object_or_404(Ticket, id=blog_id)
+        print(ticket)
         if review_form.is_valid():
             review = Review()
             review.ticket = ticket
@@ -121,9 +123,11 @@ def create_review_response_ticket(request, blog_id):
             return redirect('home')
     else:
         review_form = ReviewForm()
+        ticket = get_object_or_404(Ticket, id=blog_id)
         
     context = {
         'review_form': review_form,
+        'ticket': ticket,
     }
     return render(request, 'blog/create_review_response.html', context=context)
 
@@ -178,23 +182,32 @@ def delete_ticket(request, blog_id):
     
 @login_required
 def follow_users(request):
+    following = []
+    user = request.user
     if request.method == 'POST':
         form = SearchUserForm(request.POST)
         username = request.POST['username']
         # verifier si username est un utilisateur
         try:
             searched_user =  UserFollows.objects.get(username=username)
-            user = request.user
             user.follows.add(searched_user)
             follows = user.follows.all()
         except UserFollows.DoesNotExist:
             print("utilisateur inexistant")
     else:
         form = SearchUserForm()
-        follows = None
+        follows = user.follows.all()
+
+    followsi = UserFollows.objects.all()
+    for follow in followsi:
+        list_users = follow.follows.all()
+        if user in list_users:
+            following.append(follow)
+        
     context = {
         'form': form,
         'follows': follows,
+        'following': following
     }
     return render(request, 'blog/follow_users_form.html', context=context)
 

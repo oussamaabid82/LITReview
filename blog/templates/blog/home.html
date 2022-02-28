@@ -17,14 +17,17 @@
         {% for instance in page_obj %}
         
             {% if instance|model_type == 'Review' %}
-                <div class="post">
-                    <h4>{{ instance.title }}</h4>
-                    <p><strong>Critique publié par {{ instance.user }}</strong></p>
-                    <p>{{ instance.date_created }}</p>
-                    <p>{{ instance.title_review }}</p> 
-                    <p>{{ instance.rating }}</p>
-                    <p>{{ instance.content }}</p>
-                </div>
+                {% if instance.ticket %}
+                    <div class="post">
+                        <h4>{{ instance.title }}</h4>
+                        <p><strong>Critique publié par {{ instance.user }}</strong></p>
+                        <p>{{ instance.date_created }}</p>
+                        <p> {{  instance.ticket_id }} </p>
+                        <p>{{ instance.title_review }}</p> 
+                        <p>{{ instance.rating }}</p>
+                        <p>{{ instance.content }}</p>
+                    </div>
+                {% endif %}
 
             {% elif instance|model_type == 'Ticket' %}
                 <div class="post">
@@ -32,9 +35,9 @@
                         <p><strong>{{ instance.user}} a demandé une critique</strong></p>
                         <p>{{ instance.date_created }}</p>
                     </div>
-                    <h4> {{instance.title}} </h4>
+                    <h4> {{instance.title_ticket}} </h4>
+                    <p>{{instance.description}}</p>
                     <img src="{{ instance.image.url }}" alt="image_ticket">
-                    
                     <form action="{% url 'review_response' instance.id %}">
                         <button type="submit">Créer une critique</button>
                     </form>

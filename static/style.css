@@ -66,6 +66,7 @@ html {
 
 /* Style page content */
 .main {
+    
     margin-left: 0px; /* Same as the width of the sidebar */
     padding: 100px;
 }
@@ -106,8 +107,18 @@ html {
     border-radius: 5px;
 }
 
-.display_follows div{
-    display: flex;
+/* ABONNEMENTS */
+
+table{
+    
+    border-collapse: collapse;
     font-size: large;
+}
+td{
+    border: 1px #000000 solid;
+    padding: 10px;
+}
+.td_follows{
+    width: 600px;
 }
 

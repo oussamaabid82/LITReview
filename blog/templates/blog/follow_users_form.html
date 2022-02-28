@@ -1,17 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Suivre d'autres utilisateurs</h2>
+    
     <form method="post">
+        <h3>Suivre d'autres utilisateurs</h3>
         {{ form.as_p }}
         {% csrf_token %}
         <button type="submit" >Envoyer</button>
     </form>
     <div class="display_follows">
-        <div>
+        <table>
+            <caption><h3>Abonnements</h3></caption>
             {% for instance in follows %}
-                {{instance}}
-                <p><a href="{% url 'remove_follow_users' instance.id %}">Désabonner</a></p>
+            <tr>
+                <td class="td_follows">
+                    {{instance}}
+                </td>
+                <td class="td_unfollows">
+                    <a href="{% url 'remove_follow_users' instance.id %}">Désabonner</a>
+                </td>
+            </tr>   
             {% endfor %}
-        </div>
+        </table>
+    </div>
+    <div class="display_followers">
+        <table>
+            <caption><h3>Abonné</h3></caption>
+            {% for instance in following %}
+            <tr>
+                <td class="td_follows">
+                    {{instance}}
+                </td>
+            </tr>   
+            {% endfor %}
+        </table>
     </div>
 {% endblock content %}
