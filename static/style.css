@@ -21,9 +21,13 @@ html {
 }
 
 .post img {
-    width: 200px;
-    height: 200 px;
+    width: 300px;
+    height: 300 px;
     border-radius: 5px;
+}
+.ticket_response img{
+    width: 300px;
+    height: 300 px;
 }
 
 .grid-container {
@@ -33,6 +37,19 @@ html {
     margin-right: auto;
 }
 
+ul{
+    display: flex;
+    list-style-type: none;
+}
+
+li{
+    padding: 0px 60px 0px 0px;
+}
+
+textarea{
+    width: 900;
+    height: 300;
+}
 /* PAGE D'ACCEUIL */
 .connexion_page{
     display: flex;

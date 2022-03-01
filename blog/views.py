@@ -145,6 +145,7 @@ def edit_review(request, blog_id):
         edit_review = ReviewForm(instance=blog)
     context = {
         'edit_review': edit_review,
+        'review': blog,
     }
     return render(request, 'blog/edit_review.html', context=context)
 

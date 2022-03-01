@@ -3,5 +3,5 @@
     <h2>{{ blog.title }}</h2>
     <p><a href="{% url 'edit_review' blog.id %}">Modifier le billet</a></p>
     <p>{{ blog.content }}</p>
-    <p>{{ blog.rating }}</p>
+    <p>Note:{{ blog.rating }}</p>
 {% endblock content %}

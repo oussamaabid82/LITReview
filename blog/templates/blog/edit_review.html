@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2>Modifier votre critique</h2>
+    <div class="ticket_response">
+        <div class="head_ticket">
+            <p><strong>Ticket - {{ review.ticket.user}}</strong></p>
+            <p>{{ review.ticket.date_created }}</p>
+        </div>
+        <h4> {{review.ticket.title_ticket}} </h4>
+        <img src="{{ review.ticket.image.url }}" alt="image_ticket">
+    </div>
+    <div>
+        
+    </div>
     <form method="post">
         {{ edit_review.as_p }}
         {% csrf_token %}
-        <button type="submit" >Sauvegarder</button>
+        <button type="submit" >Envoyer</button>
     </form>
 {% endblock content %}

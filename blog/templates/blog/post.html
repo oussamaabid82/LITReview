@@ -6,13 +6,24 @@
         
         {% for instance in page_obj %}
             {% if instance|model_type == 'Review' %}
+            
                 <div class="post">
                     <h4>{{ instance.title }}</h4>
-                    <p><strong>Critique publié par {{ instance.user }}</strong></p>
+                    <p><strong>Vous avez publié une critique</strong></p>
                     <p>{{ instance.date_created }}</p>
                     <p>{{ instance.title_review }}</p> 
-                    <p>{{ instance.rating }}</p>
+                    <p>Note:{{ instance.rating }}</p>
                     <p class="description">{{ instance.content }}</p>
+
+                    <div class="ticket_response">
+                        <div class="head_ticket">
+                            <p><strong>Ticket - {{ instance.ticket.user}}</strong></p>
+                            <p>{{ instance.ticket.date_created }}</p>
+                        </div>
+                        <h4> {{instance.ticket.title_ticket}} </h4>
+                        <img src="{{ instance.ticket.image.url }}" alt="image_ticket">
+                    </div> 
+
                     <div class="button_delet_and_modif">
                         <form action="{% url 'edit_review' instance.id %}">
                             <button type="submit">Modifier</button>
