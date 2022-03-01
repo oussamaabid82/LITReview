@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -96,8 +97,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+
+PROJECT_DIR=os.path.dirname(__file__)
+STATIC_ROOT= os.path.join(PROJECT_DIR,'static/')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR.joinpath('static/')]
+# STATICFILES_DIRS = ( os.path.join(PROJECT_DIR,'static/'),)
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

@@ -1,7 +1,7 @@
 {% load static %}
 <html>
     <head>
-        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
     </head>
     <body>
         <div class="sidebar">
@@ -12,9 +12,13 @@
                 <nav><a href="{% url 'logout' %}">Se déconnecter</a></nav>
             {% endif %}
         </div>
-        {% if user.is_authenticated %}
+
+        <div class="salut">
+            {% if user.is_authenticated %}
             <h4>Salut, {{ user }} !</h4>
-        {% endif %}
+            {% endif %}
+        </div>
+
         <div class="main">
             {% block content %}{% endblock content %}
         </div>

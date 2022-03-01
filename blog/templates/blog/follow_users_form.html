@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
     
-    <form method="post">
+    <div class="input_search_user">
         <h3>Suivre d'autres utilisateurs</h3>
-        {{ form.as_p }}
-        {% csrf_token %}
-        <button type="submit" >Envoyer</button>
-    </form>
+        <form method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button type="submit" >Envoyer</button>
+        </form>
+        {{ message }}
+    </div>
+    
     <div class="display_follows">
         <table>
             <caption><h3>Abonnements</h3></caption>
@@ -18,7 +22,7 @@
                 <td class="td_unfollows">
                     <a href="{% url 'remove_follow_users' instance.id %}">Désabonner</a>
                 </td>
-            </tr>   
+            </tr>  
             {% endfor %}
         </table>
     </div>

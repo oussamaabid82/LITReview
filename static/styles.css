@@ -38,6 +38,25 @@ html {
     display: flex;
     justify-content: center;
 }
+.connexion_page button{
+    margin-right: 20px;
+    background-color: white;
+    padding: 10px 28px;
+    border-radius: 12px;
+    font-size: large;
+    cursor: pointer;
+}
+
+.inscription{
+    display: flex;
+    justify-content: left;
+}
+
+.connexion h2{
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
 
 .button_inscription{
     margin-right: 50px;
@@ -59,6 +78,7 @@ html {
     font-size: large;
     cursor: pointer;
 }
+
 /* The sidebar menu */
 .sidebar {
     display: flex;
@@ -73,12 +93,12 @@ html {
 
 .sidebar a {
     text-decoration: none;
-    color:  #1900f8;
+    color:  #155cc5;
     display: block;
 }
 
 .sidebar a:hover {
-    color: #bd2020;
+    color: #ff0000;
 }
 
 /* TICKET */
@@ -119,6 +139,55 @@ html {
 }
 
 /* ABONNEMENT */
+
+.input_search_user h3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input_search_user p{
+    width: 50%;
+    height: 40px;
+}
+
+.input_search_user form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input_search_user input{
+    width: 50%;
+    height: 40px;
+}
+
+.input_search_user p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input_search_user button{
+    margin-right: 20px;
+    background-color: white;
+    padding: 10px 28px;
+    border-radius: 12px;
+    font-size: large;
+    cursor: pointer;
+}
+
+.display_follows{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.display_followers{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 table{
     
     border-collapse: collapse;
@@ -152,4 +221,9 @@ td{
     word-wrap: break-word;
 }
 
-
+.salut h4{
+    font-size:x-large;
+    font-family:cursive;
+    font-style: italic;
+    color:rgb(22, 22, 182)
+}

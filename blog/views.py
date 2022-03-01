@@ -179,6 +179,8 @@ def delete_ticket(request, blog_id):
 @login_required
 def follow_users(request):
     following = []
+    follows = []
+    message = ''
     user = request.user
     if request.method == 'POST':
         form = SearchUserForm(request.POST)
@@ -188,12 +190,15 @@ def follow_users(request):
             searched_user =  UserFollows.objects.get(username=username)
             user.follows.add(searched_user)
             follows = user.follows.all()
+            
         except UserFollows.DoesNotExist:
-            print("utilisateur inexistant")
+            message = ("utilisateur inexistant")
+            
     else:
         form = SearchUserForm()
         follows = user.follows.all()
-
+        message = ''
+        
     follow = UserFollows.objects.all()
     for follow in follow:
         list_users = follow.follows.all()
@@ -203,7 +208,8 @@ def follow_users(request):
     context = {
         'form': form,
         'follows': follows,
-        'following': following
+        'following': following,
+        'message': message
     }
     return render(request, 'blog/follow_users_form.html', context=context)
 
