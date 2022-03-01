@@ -60,8 +60,6 @@ def create_ticket(request):
             ticket.image = ticket_form.cleaned_data['image']
             ticket.user = request.user  
             ticket.save()
-            # ticket.contributors.add(request.user, through_defaults={'ticket_contributions': 'Auteur principal'})
-            print(ticket.contributors)
             return redirect('home')
     else:
         ticket_form = TicketForm()
@@ -93,7 +91,6 @@ def create_review(request):
             review.rating = request.POST['rating']
             review.user = request.user
             review.save()
-            # review.contributors.add(request.user, through_defaults={'review_contributions': 'Auteur principal'})
             return redirect('home')
     else:
         ticket_form = TicketForm()
@@ -111,7 +108,6 @@ def create_review_response_ticket(request, blog_id):
     if request.method == 'POST':
         review_form = ReviewForm(request.POST)
         ticket = get_object_or_404(Ticket, id=blog_id)
-        print(ticket)
         if review_form.is_valid():
             review = Review()
             review.ticket = ticket
@@ -198,8 +194,8 @@ def follow_users(request):
         form = SearchUserForm()
         follows = user.follows.all()
 
-    followsi = UserFollows.objects.all()
-    for follow in followsi:
+    follow = UserFollows.objects.all()
+    for follow in follow:
         list_users = follow.follows.all()
         if user in list_users:
             following.append(follow)

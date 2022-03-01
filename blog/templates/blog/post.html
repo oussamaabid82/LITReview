@@ -12,7 +12,7 @@
                     <p>{{ instance.date_created }}</p>
                     <p>{{ instance.title_review }}</p> 
                     <p>{{ instance.rating }}</p>
-                    <p>{{ instance.content }}</p>
+                    <p class="description">{{ instance.content }}</p>
                     <div class="button_delet_and_modif">
                         <form action="{% url 'edit_review' instance.id %}">
                             <button type="submit">Modifier</button>
@@ -31,7 +31,7 @@
                         <p>{{ instance.date_created }}</p>
                     </div>
                     <p>{{ instance.title_ticket }}</p>
-                    <p>{{ instance.description }} </p>
+                    <p class="description">{{ instance.description }} </p>
                     <img src="{{ instance.image.url }}" alt="image_ticket">
                     <div class="button_delet_and_modif">
                         <form action="{% url 'edit_ticket' instance.id %}">

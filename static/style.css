@@ -1,13 +1,42 @@
 html {
     font-family: Arial;
 }
-.connexion_page{
-    display: flex;
-    justify-content: center;
-}
 
 .body{
     border: 4px solid #000000;
+}
+
+.main {
+    
+    margin-left: 0px; 
+    padding: 100px;
+}
+
+.post {
+    Margin:0px 0px 10px 0px ;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    border: 1px solid #000000;
+    text-align: left;
+}
+
+.post img {
+    width: 200px;
+    height: 200 px;
+    border-radius: 5px;
+}
+
+.grid-container {
+    width: 70%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* PAGE D'ACCEUIL */
+.connexion_page{
+    display: flex;
+    justify-content: center;
 }
 
 .button_inscription{
@@ -17,14 +46,19 @@ html {
 .form_connexion{
     align-content: center;
 }
-
-.head_ticket{
+.button_flux{
     display: flex;
-} 
+    justify-content: center;
+}
 
-.head_ticket p{
-   flex: 2 1 auto;
-} 
+.button_flux button{
+    margin: 0px 60px;
+    background-color: white;
+    padding: 10px 50px;
+    border-radius: 12px;
+    font-size: large;
+    cursor: pointer;
+}
 /* The sidebar menu */
 .sidebar {
     display: flex;
@@ -37,55 +71,68 @@ html {
     margin-right: 15px;
 }
 
-.button_flux{
-    display: flex;
-    justify-content: center;
+.sidebar a {
+    text-decoration: none;
+    color:  #1900f8;
+    display: block;
 }
 
-.button_flux button{
+.sidebar a:hover {
+    color: #bd2020;
+}
+
+/* TICKET */
+.head_ticket{
+    display: flex;
+} 
+
+.head_ticket p{
+   flex: 2 1 auto;
+} 
+.ticket_response{
+    border: 1px #000000 solid;
+    margin: 9;
+}
+
+/* REVIEW */
+.head_review{
+    display: flex;
+}
+
+.head_review p{
+    flex: 1 1 auto;
+}
+
+.button_creer_critique{
+    display: flex;
+    justify-content: right;
+}
+
+.button_creer_critique button{
+    justify-content: right;
     margin-right: 100px;
     background-color: white;
-    padding: 15px 32px;
+    padding: 9px 19px;
     border-radius: 12px;
     font-size: large;
     cursor: pointer;
 }
 
-
-/* The navigation menu links */
-.sidebar a {
-    text-decoration: none;
-    color:  #000000;
-    display: block;
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidebar a:hover {
-    color: #080808;
-}
-
-/* Style page content */
-.main {
+/* ABONNEMENT */
+table{
     
-    margin-left: 0px; /* Same as the width of the sidebar */
-    padding: 100px;
+    border-collapse: collapse;
+    font-size: large;
+}
+td{
+    border: 1px #000000 solid;
+    padding: 10px;
+}
+.td_follows{
+    width: 600px;
 }
 
-.grid-container {
-    width: 70%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-
-}
-.post {
-    Margin:0px 0px 10px 0px ;
-    padding-top: 10px;
-    padding-bottom: 5px;
-    border: 1px solid #000000;
-    text-align: left;
-}
-
+/* PAGE POST */
 .button_delet_and_modif{
     display: flex;
     justify-content: end;
@@ -100,25 +147,9 @@ html {
     font-size: large;
     cursor: pointer;
 }
-
-.post img {
-    width: 200px;
-    height: 200 px;
-    border-radius: 5px;
+/* //////////// */
+.description{
+    word-wrap: break-word;
 }
 
-/* ABONNEMENTS */
-
-table{
-    
-    border-collapse: collapse;
-    font-size: large;
-}
-td{
-    border: 1px #000000 solid;
-    padding: 10px;
-}
-.td_follows{
-    width: 600px;
-}
 

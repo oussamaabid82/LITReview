@@ -19,21 +19,28 @@
             {% if instance|model_type == 'Review' %}
                 {% if instance.ticket %}
                     <div class="post">
-                        <h4>{{ instance.title }}</h4>
-                        <p><strong>Critique publié par {{ instance.user }}</strong></p>
-                        <p>{{ instance.date_created }}</p>
-                        <div class="post">
+                        <div class="head_review">
+                            {% if instance.user == user %}
+                                <p><strong>Vous avez publié une critique</strong></p>
+                            {% elif instance.user != user %}
+                                <p><strong>Critique publié par {{ instance.user }}</strong></p>
+                            {% endif %}
+                            <p>{{ instance.date_created }}</p>
+                        </div>
+
+                        <p>{{ instance.title_review }}</p>
+                        <p>{{ instance.rating }}</p>
+                        <p class="description">{{ instance.content }}</p>
+
+                        <div class="ticket_response">
                             <div class="head_ticket">
-                                <p><strong>{{ instance.ticket.user}} a demandé une critique</strong></p>
+                                <p><strong>Ticket - {{ instance.ticket.user}}</strong></p>
                                 <p>{{ instance.ticket.date_created }}</p>
                             </div>
                             <h4> {{instance.ticket.title_ticket}} </h4>
-                            <p>{{instance.ticket.description}}</p>
                             <img src="{{ instance.ticket.image.url }}" alt="image_ticket">
                         </div> 
-                        <p>{{ instance.title_review }}</p> 
-                        <p>{{ instance.rating }}</p>
-                        <p>{{ instance.content }}</p>
+                        
                     </div>
                 {% endif %}
 
@@ -44,9 +51,9 @@
                         <p>{{ instance.date_created }}</p>
                     </div>
                     <h4> {{instance.title_ticket}} </h4>
-                    <p>{{instance.description}}</p>
+                    <p class="description">{{instance.description}}</p>
                     <img src="{{ instance.image.url }}" alt="image_ticket">
-                    <form action="{% url 'review_response' instance.id %}">
+                    <form class="button_creer_critique" action="{% url 'review_response' instance.id %}">
                         <button type="submit">Créer une critique</button>
                     </form>
                 </div> 
