@@ -13,8 +13,4 @@ def signup_page(request):
             return redirect(settings.LOGIN_REDIRECT_URL)
     else:
         form = SignupForm()
-        
-        
     return render(request, 'authentication/signup.html', context={'form': form})
-
-

@@ -47,15 +47,23 @@
             {% elif instance|model_type == 'Ticket' %}
                 <div class="post">
                     <div class="head_ticket">
-                        <p><strong>{{ instance.user}} a demandé une critique</strong></p>
+                        {% if instance.user == user %}
+                            <p><strong>Vous avez demandé une critique</strong></p>
+                        {% elif instance.user != user %}
+                            <p><strong>Critique publié par {{ instance.user }}</strong></p>
+                        {% endif %}
+
                         <p>{{ instance.date_created }}</p>
                     </div>
                     <h4> {{instance.title_ticket}} </h4>
                     <p class="description">{{instance.description}}</p>
                     <img src="{{ instance.image.url }}" alt="image_ticket">
-                    <form class="button_creer_critique" action="{% url 'review_response' instance.id %}">
-                        <button type="submit">Créer une critique</button>
-                    </form>
+                    {% if Review.ticket_id == None %}
+                        <form class="button_creer_critique" action="{% url 'review_response' instance.id %}">
+                            <button type="submit">Créer une critique</button>
+                        </form>
+                    
+                    {% endif %}
                 </div> 
             {% endif %}
         {% endfor %}

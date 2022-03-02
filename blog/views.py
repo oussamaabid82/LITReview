@@ -14,9 +14,9 @@ from .models import Review, Ticket
 @login_required
 def home(request):
     ticket = Ticket.objects.filter(
-        Q(user__in = request.user.follows.all()) | Q(user=True))
+        Q(user__in = request.user.follows.all()) |Q(user=request.user))
     review = Review.objects.filter(
-        Q(user__in = request.user.follows.all()) | Q(user=True))
+        Q(user__in = request.user.follows.all()) | Q(user=request.user))
 
     review_and_ticket = sorted(
         chain(review, ticket),
@@ -28,7 +28,7 @@ def home(request):
     page_obj = paginator.get_page(page_number)
     context = {
         'page_obj': page_obj,
-        
+
         }
     return render(request, 'blog/home.html', context=context)
 
@@ -69,7 +69,6 @@ def create_ticket(request):
         }
     return render(request, 'blog/tickets.html', context=context)
 
-
 @login_required
 def create_review(request):
     if request.method == 'POST':
@@ -82,8 +81,6 @@ def create_review(request):
             ticket.image = ticket_form.cleaned_data['image']
             ticket.user = request.user  
             ticket.save()
-            # ticket.contributors.add(request.user, through_defaults={'ticket_contributions': 'Auteur principal'})
-            
             review = Review()
             review.ticket = ticket
             review.title_review = request.POST['title_review']
@@ -101,7 +98,6 @@ def create_review(request):
         'review_form': review_form,
     }
     return render(request, 'blog/create_review.html', context=context)
-
 
 @login_required
 def create_review_response_ticket(request, blog_id):
@@ -189,23 +185,24 @@ def follow_users(request):
         # verifier si username est un utilisateur
         try:
             searched_user =  UserFollows.objects.get(username=username)
-            user.follows.add(searched_user)
+            if searched_user != user:
+                user.follows.add(searched_user)
             follows = user.follows.all()
-            
         except UserFollows.DoesNotExist:
+            follows = user.follows.all()
             message = ("utilisateur inexistant")
             
+            
+        
     else:
         form = SearchUserForm()
         follows = user.follows.all()
         message = ''
-        
     follow = UserFollows.objects.all()
     for follow in follow:
         list_users = follow.follows.all()
         if user in list_users:
             following.append(follow)
-        
     context = {
         'form': form,
         'follows': follows,

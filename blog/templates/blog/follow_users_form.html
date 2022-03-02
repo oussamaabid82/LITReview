@@ -2,13 +2,13 @@
 {% block content %}
     
     <div class="input_search_user">
+        <h3 class="message">{{ message }}</h3>
         <h3>Suivre d'autres utilisateurs</h3>
         <form method="post">
             {{ form.as_p }}
             {% csrf_token %}
             <button type="submit" >Envoyer</button>
         </form>
-        {{ message }}
     </div>
     
     <div class="display_follows">

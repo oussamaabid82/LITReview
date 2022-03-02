@@ -1,4 +1,3 @@
-from attr import fields
 from django import forms
 from authentication.models import UserFollows
 from .models import Review, Ticket
@@ -17,14 +16,14 @@ class TicketForm(forms.ModelForm):
     image = forms.ImageField()
     class Meta:
         model = Ticket
-        fields = ['title_ticket','description', 'image']
-        
+        fields = ['title_ticket', 'description', 'image']
+
 class ReviewForm(forms.ModelForm):
     rating = forms.ChoiceField(choices=RATING_RANGE, widget=forms.RadioSelect())
     class Meta:
         model = Review
         fields = ['title_review', 'rating', 'content']
-        
+
 class FollowUsersForm(forms.ModelForm):
     class Meta:
         model = UserFollows

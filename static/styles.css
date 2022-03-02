@@ -25,10 +25,7 @@ html {
     height: 300 px;
     border-radius: 5px;
 }
-.ticket_response img{
-    width: 300px;
-    height: 300 px;
-}
+
 
 .grid-container {
     width: 70%;
@@ -50,6 +47,12 @@ textarea{
     width: 900;
     height: 300;
 }
+
+.message{
+    font-size: xx-large;
+    color: #ff0000;
+}
+
 /* PAGE D'ACCEUIL */
 .connexion_page{
     display: flex;
@@ -95,6 +98,26 @@ textarea{
     font-size: large;
     cursor: pointer;
 }
+.champ_inscription{
+    display: block;
+    justify-content: center; 
+}
+.button_page_inscription{
+    display: flex;
+    
+}
+.button_page_inscription button{
+    margin: 0px 60px;
+    background-color: white;
+    padding: 10px 30px;
+    border-radius: 12px;
+    font-size: large;
+    cursor: pointer;
+}
+
+.champ_inscription span{
+    display: none;
+}
 
 /* The sidebar menu */
 .sidebar {
@@ -131,6 +154,10 @@ textarea{
     margin: 9;
 }
 
+.ticket_response img{
+    width: 300px;
+    height: 300 px;
+}
 /* REVIEW */
 .head_review{
     display: flex;
@@ -155,7 +182,7 @@ textarea{
     cursor: pointer;
 }
 
-/* ABONNEMENT */
+/* PAGE ABONNEMENT */
 
 .input_search_user h3{
     display: flex;
