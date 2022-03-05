@@ -135,6 +135,7 @@ textarea{
     text-decoration: none;
     color:  #155cc5;
     display: block;
+    font-size: larger;
 }
 
 .sidebar a:hover {

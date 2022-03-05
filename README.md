@@ -1,4 +1,4 @@
-# Application qui perme de demander des critiques de livres ou d’articles, en créant un ticket et de publier des critiques de livres ou d’articles
+# Application qui permet de demander des critiques de livres ou d’articles, en créant un ticket et de publier des critiques de livres ou d’articles
 
 * ##### Cette application web permettant à une communauté d'utilisateurs de consulter ou de solliciter une critique de livres à la demande.
 
@@ -30,9 +30,13 @@
 	- Installez Django et les modules nécessaires pour le bon fonctionnement du programme
 		```bash
 		pip install -r requirements.txt
-		``` 
-	- Démarrer le le serveur en tapant dans votre terminal:
-		```shell
+		```
+	- Créer la migration des models dans la base des données en tapant dans votre terminal:
+		```bash
+		python manage.py migrate
+		```
+	- Démarrer le serveur en tapant dans votre terminal:
+		```bash
 		python manage.py runserver
 		```
     - Ouvrez votre navigateur web et taper http://127.0.0.1:8000/ dans la barre d'adresse pour démarrer le programme
