@@ -1,3 +1,3 @@
 [flake8]
 max-line-length = 120
-exclude = venv/*, templates/*,media/*,static/*,migrations/*,litreiview/*
+exclude = venv/*, templates/*,media/*,static/*,./authentication/migrations/*,./blog/migrations/*,litreiview/*

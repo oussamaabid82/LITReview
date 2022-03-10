@@ -14,4 +14,3 @@ class UserFollows(AbstractUser):
         verbose_name='suit',
         blank=True,
     )
- 

@@ -11,7 +11,7 @@ import blog.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LoginView.as_view(template_name='authentication/login.html',
-                               redirect_authenticated_user=True),name='login'),
+                               redirect_authenticated_user=True), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('signup/', authentication.views.signup_page, name='signup'),
     path('home/', blog.views.home, name='home'),
@@ -31,9 +31,3 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# urlpatterns += pattern('', (
-#     r'^static/(?P<path>.*)$',
-#     'django.views.static.serve',
-#     {'document_root': settings.STATIC_ROOT}
-# ))

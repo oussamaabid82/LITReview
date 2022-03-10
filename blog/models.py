@@ -9,6 +9,7 @@ class Ticket(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
 
+
 class Review(models.Model):
     RATING_RANGE = (
         ('0', '0'),
@@ -24,6 +25,7 @@ class Review(models.Model):
     rating = models.CharField(max_length=11, choices=RATING_RANGE)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
+
     def _get_word_count(self):
         return len(self.content.split(' '))
 
